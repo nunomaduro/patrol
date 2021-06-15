@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/nunomaduro/art/master/readme.png" width="600" alt="PEST">
+    <img src="https://raw.githubusercontent.com/nunomaduro/patrol/master/docs/example.png" width="600" alt="Patrol">
     <p align="center">
         <a href="https://github.com/nunomaduro/patrol/actions"><img alt="GitHub Workflow Status (master)" src="https://img.shields.io/github/workflow/status/nunomaduro/patrol/Tests/master"></a>
         <a href="https://packagist.org/packages/nunomaduro/patrol"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/nunomaduro/patrol"></a>
