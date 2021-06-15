@@ -10,7 +10,7 @@ test('filter', function () {
         fn ($value) => $value === 'bar',
     )->toArray();
 
-    expect($values)->toBe(['bar']);
+    expect(array_values($values))->toBe(['bar']);
 });
 
 test('map', function () {

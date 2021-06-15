@@ -1,5 +1,3 @@
 <?php
 
-test('example', function () {
-    // ..
-});
+test('example');
