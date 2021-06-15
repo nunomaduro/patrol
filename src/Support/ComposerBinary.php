@@ -73,7 +73,8 @@ final class ComposerBinary
     /**
      * Returns the reason why the given dependencies exist.
      *
-     * @param  array<string,string> $dependencies
+     * @param array<string,string> $dependencies
+     *
      * @return array<string,string>
      */
     public function why(array $dependencies): array
