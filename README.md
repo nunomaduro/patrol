@@ -10,8 +10,6 @@
 
 ------
 
-> This project is a work in progress! The code has bugs, do not use it.
-
 **Patrol** is an elegant command-line tool that keeps your PHP Project's dependencies in check.
 
 ## Installation / Usage
