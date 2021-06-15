@@ -39,6 +39,3 @@ jobs:
 
     - name: Coding Style Checks
       run: composer test:lint
-
-    - name: Type Checks
-      run: composer test:types
