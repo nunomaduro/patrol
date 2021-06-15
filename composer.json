@@ -1,0 +1,59 @@
+{
+    "name": "patrolphp/patrol",
+    "description": "An elegant command-line tool that keeps your PHP Project's dependencies in check",
+    "keywords": ["php", "skeleton", "package"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nuno Maduro",
+            "email": "enunomaduro@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "composer/semver": "^3.2",
+        "guzzlehttp/guzzle": "^7.2.0",
+        "psr/http-client": "^1.0",
+        "symfony/console": "^5.3.0",
+        "symfony/process": "^5.3.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0.0",
+        "pestphp/pest": "^1.5.0",
+        "phpstan/phpstan": "^0.12.85",
+        "symfony/var-dumper": "^5.2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "NunoMaduro\\Patrol\\": "src/"
+        },
+        "files": [
+            "./src/Support/Functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "bin": [
+        "bin/patrol"
+    ],
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist"
+    },
+    "scripts": {
+        "lint": "php-cs-fixer fix -v",
+        "test:lint": "php-cs-fixer fix -v --dry-run",
+        "test:types": "phpstan analyse --ansi --memory-limit=0",
+        "test:unit": "pest --colors=always",
+        "test": [
+            "@test:lint",
+            "@test:types",
+            "@test:unit"
+        ]
+    }
+}

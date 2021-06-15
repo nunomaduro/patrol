@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use NunoMaduro\Patrol\Commands\InspectCommand;
+use function NunoMaduro\Patrol\Support\collect;
+use Symfony\Component\Console\Application;
+
+(static function () {
+    require file_exists(__DIR__ . '/../vendor/autoload.php')
+        ? __DIR__ . '/../vendor/autoload.php'
+        : __DIR__ . '/../../../../vendor/autoload.php';
+
+    /**
+     * Creates a new console application, and runs it.
+     */
+    $application = new Application('Patrol', '0.1');
+
+    /*
+     * Hides default console commands.
+     */
+    collect($application->all())->each(
+        fn ($command) => $command->setHidden(true)
+    );
+
+    /*
+     * Adds Patrol commands.
+     */
+    $application->add(new InspectCommand());
+
+    /*
+     * Defines the default command, and runs the application.
+     */
+    $application->setDefaultCommand('inspect')->run();
+})();
