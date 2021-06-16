@@ -50,7 +50,8 @@ final class Score
     {
         $output->line();
 
-        $percentage = ($this->composer->updated()->count() * 100) / $this->composer->all()->count();
+        $count = $this->composer->all()->count();
+        $percentage = $count > 0 ? ($this->composer->updated()->count() * 100) / $count : 0;
 
         $vulnerabilities = $this->composer->all()->map(
             fn ($dependency) => $dependency['vulnerabilities']
@@ -59,7 +60,7 @@ final class Score
         $asString   = $this->getPercentageAsString($percentage);
         $bgColor    = $this->getBgColor($percentage, $vulnerabilities->count());
 
-        $resume = sprintf('%s dependencies', $this->composer->all()->count());
+        $resume = sprintf('%s dependencies', $count);
 
         $this->composer->outdated()->whenNotEmpty(function ($count) use (&$resume) {
             $resume .= sprintf(', <fg=yellow>%s outdated</>', $count);
