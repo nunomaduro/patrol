@@ -134,11 +134,11 @@ final class ComposerBinary
                 return [self::$cache[$command], $command];
             }
 
-            tap($process = new Process([
-                (new PhpExecutableFinder())->find(),
+            tap($process = new Process(array_filter([
+                $this->isWindows() ? null : (new PhpExecutableFinder())->find(),
                 (new ExecutableFinder())->find('composer'),
                 ...explode(' ', $command),
-            ], (string) realpath($this->directory)))->start();
+            ]), (string) realpath($this->directory)))->start();
 
             return [$process, $command];
         })->map(
@@ -146,5 +146,12 @@ final class ComposerBinary
                 ? (self::$cache[$result[1]] = tap($result[0], fn ($result) => $result->wait())->getOutput())
                 : $result[0]
         )->toArray();
+    }
+    /*
+    * Checks if php executable runs on windows
+    */
+    private function isWindows(): bool
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
 }
