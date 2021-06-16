@@ -50,7 +50,7 @@ final class Score
     {
         $output->line();
 
-        $count = $this->composer->all()->count();
+        $count      = $this->composer->all()->count();
         $percentage = $count > 0 ? ($this->composer->updated()->count() * 100) / $count : 0;
 
         $vulnerabilities = $this->composer->all()->map(
