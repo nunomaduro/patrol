@@ -1,7 +1,7 @@
 {
     "name": "nunomaduro/patrol",
     "description": "An elegant command-line tool that keeps your PHP Project's dependencies in check",
-    "keywords": ["php", "skeleton", "package"],
+    "keywords": ["php", "patrol", "dependencies", "composer"],
     "license": "MIT",
     "authors": [
         {
@@ -11,9 +11,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "composer/semver": "^3.2",
+        "composer/semver": "^3.2.5",
         "guzzlehttp/guzzle": "^7.2.0",
-        "psr/http-client": "^1.0",
+        "psr/http-client": "^1.0.1",
         "symfony/console": "^5.3.0",
         "symfony/process": "^5.3.0"
     },
