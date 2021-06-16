@@ -147,6 +147,7 @@ final class ComposerBinary
                 : $result[0]
         )->toArray();
     }
+
     /*
     * Checks if php executable runs on windows
     */
