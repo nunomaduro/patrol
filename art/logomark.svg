@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="100" viewBox="0 0 80 100">
+    <title>Patrol logomark</title>
+    <style>line{stroke-linecap:round;stroke-miterlimit:10;fill:none}</style>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="40" y1="98" x2="40" y2="2">
+        <stop stop-color="#fcbf24" offset="0" />
+        <stop stop-color="#f59e0b" offset="1" />
+    </linearGradient>
+    <polygon fill="url(#bg)" stroke="#fbbf24" stroke-width="4" points="78,68.5 40,98 2,68.5 2,14.1 40,2 78,14.1" />
+    <line stroke="#fde68a" stroke-width="6" x1="17" y1="57" x2="45" y2="57"/>
+    <line stroke="#fde68a" stroke-width="6" x1="47" y1="29" x2="55" y2="29"/>
+    <line stroke="#78350f" stroke-width="6" x1="41" y1="43" x2="63" y2="43"/>
+    <line stroke="#fffbeb" stroke-width="6" x1="23" y1="43" x2="31" y2="43"/>
+    <line stroke="#fef3c7" stroke-width="6" x1="17" y1="29" x2="37" y2="29"/>
+    <path fill="#292524" d="M113,20h-13v60h8.7V54.3h4.3c8.7,0,13-4.3,13-12.9v-8.6C126,24.3,121.7,20,113,20z M117.3,41.4 c0,2.9-1.4,4.3-4.3,4.3h-4.3V28.6h4.3c2.9,0,4.3,1.4,4.3,4.3V41.4z M145.8,20H131v60h8.7V58.6h8.7V80h8.7V31.2 C157,25,152,20,145.8,20z M148.3,50h-8.7V28.6h5c2,0,3.7,1.6,3.7,3.6V50z M161,20h26v8.6h-8.7V80h-8.7V28.6H161V20z M211.1,53.1 L218,80h-8.7l-8.9-34.3h4.2c2.8,0,4.2-1.4,4.2-4.3v-8.6c0-2.9-1.4-4.3-4.2-4.3h-4.2v17.1V80H192V20h12.6c8.4,0,12.6,4.3,12.6,12.9 v8.6C217.2,47.4,215.2,51.3,211.1,53.1z M235,20c-8.7,0-13,4.3-13,12.9v34.3c0,8.6,4.3,12.9,13,12.9s13-4.3,13-12.9V32.9 C248,24.3,243.7,20,235,20z M239.3,67.1c0,2.9-1.4,4.3-4.3,4.3c-2.9,0-4.3-1.4-4.3-4.3V32.9c0-2.9,1.4-4.3,4.3-4.3 c2.9,0,4.3,1.4,4.3,4.3V67.1z M280,71.4V80h-26V20h10.4v51.4H280z" />
+</svg>

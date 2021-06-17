@@ -1,4 +1,7 @@
 <p align="center">
+    <img src="/art/logo.svg" height="80" alt="Patrol logo">
+</p>
+<p align="center">
     <img src="https://raw.githubusercontent.com/nunomaduro/patrol/master/docs/example.png" width="600" alt="Patrol">
     <p align="center">
         <a href="https://packagist.org/packages/nunomaduro/patrol"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/nunomaduro/patrol"></a>
