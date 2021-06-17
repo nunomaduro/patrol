@@ -20,6 +20,12 @@ final class InspectCommand extends Command
 {
     use Concerns\InteractsWithIO;
 
+    /** @var string */
+    public const FORMAT_LIST = 'LIST';
+
+    /** @var string  */
+    public const FORMAT_TABLE = 'TABLE';
+
     /**
      * The command name.
      */
@@ -43,6 +49,11 @@ final class InspectCommand extends Command
         DependenciesList::class,
     ];
 
+    private array $formats = [
+        self::FORMAT_LIST,
+        self::FORMAT_TABLE
+    ];
+
     /**
      * Configures the console command.
      */
@@ -51,7 +62,8 @@ final class InspectCommand extends Command
         parent::configure();
 
         $this->addArgument('directory', InputArgument::OPTIONAL, 'The project directory', (string) getcwd());
-        $this->addOption('min', null, InputOption::VALUE_REQUIRED, 'The minimum score', '0.0');
+        $this->addOption('min', null, InputOption::VALUE_OPTIONAL, 'The minimum score', '0.0');
+        $this->addOption('format', null, InputOption::VALUE_OPTIONAL, 'The output format', self::FORMAT_LIST);
     }
 
     /**
@@ -61,6 +73,9 @@ final class InspectCommand extends Command
     {
         $this->inputUsing($input);
         $this->outputUsing($output);
+        if (self::FORMAT_TABLE === $input->getOption('format')) {
+            $this->createTable();
+        }
 
         /** @var string $directory */
         $directory = $input->getArgument('directory');
@@ -68,6 +83,10 @@ final class InspectCommand extends Command
         collect($this->handlers)
             ->map(fn ($class)    => $class::resolve($directory))
             ->each(fn ($handler) => $handler($this));
+
+        if (self::FORMAT_TABLE === $input->getOption('format')) {
+            $this->table->render();
+        }
 
         return $this->exitCode;
     }

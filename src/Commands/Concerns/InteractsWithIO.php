@@ -3,7 +3,10 @@
 namespace NunoMaduro\Patrol\Commands\Concerns;
 
 use DateTime;
+use NunoMaduro\Patrol\Commands\InspectCommand;
 use function NunoMaduro\Patrol\Support\collect;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -22,6 +25,11 @@ trait InteractsWithIO
     private InputInterface $input;
 
     /**
+     * @var Table Holds the Table output.
+     */
+    protected Table $table;
+
+    /**
      * Sets the current input that should be used.
      */
     public function inputUsing(InputInterface $input): void
@@ -35,6 +43,11 @@ trait InteractsWithIO
     public function outputUsing(OutputInterface $output): void
     {
         $this->output = $output;
+    }
+
+    public function createTable(): void
+    {
+        $this->table = (new Table($this->output))->setHeaders(['Name', 'Why', 'Current', 'Latest']);
     }
 
     /**
@@ -134,24 +147,68 @@ trait InteractsWithIO
             $dots .= ' ';
         }
 
-        $this->output->writeln(sprintf(
-            '  <options=bold;fg=red>↳ %s</> <fg=#6C7280>%s</><fg=red;options=bold> ↓%s</>',
-            $title,
-            $dots,
-            $affectedVersions,
-        ));
+        switch ($this->options()['format']) {
+            case self::FORMAT_LIST:
+                $this->output->writeln(sprintf(
+                    '  <options=bold;fg=red>↳ %s</> <fg=#6C7280>%s</><fg=red;options=bold> ↓%s</>',
+                    $title,
+                    $dots,
+                    $affectedVersions,
+                ));
 
-        $dots = str_repeat(
-            '.',
-            max(0, $this->getTerminalWidth() - 10 - strlen($link) - strlen($reportedAt = (new DateTime($reportedAt))->format('Y-m-d'))),
-        );
+                $dots = str_repeat(
+                    '.',
+                    max(0, $this->getTerminalWidth() - 10 - strlen($link) - strlen($reportedAt = (new DateTime($reportedAt))->format('Y-m-d'))),
+                );
 
-        $this->output->writeln(sprintf(
-            '    <options=bold>»</> %s <fg=#6C7280>%s %s</>',
-            $link,
-            $dots,
-            $reportedAt
-        ));
+                $this->output->writeln(sprintf(
+                    '    <options=bold>»</> %s <fg=#6C7280>%s %s</>',
+                    $link,
+                    $dots,
+                    $reportedAt
+                ));
+                break;
+            case self::FORMAT_TABLE:
+                $this->table->addRow([
+                    new TableCell(
+                        sprintf(
+                            '<options=bold;fg=red>↳ %s</>',
+                            $title,
+                        ),
+                        ['colspan' => 2]
+                    ),
+                    new TableCell(
+                        sprintf(
+                            '<fg=red;options=bold>↓%s</>',
+                            $affectedVersions,
+                        ),
+                        ['colspan' => 2]
+                    ),
+                ]);
+                $this->table->addRow([
+                    new TableCell(
+                        sprintf(
+                            '<options=bold>»</> %s',
+                            $link,
+                        ),
+                        ['colspan' => 2]
+                    ),
+                    new TableCell(
+                        sprintf(
+                            '<fg=#6C7280>%s</>',
+                            $reportedAt,
+                        ),
+                        ['colspan' => 2]
+                    ),
+                ]);
+                break;
+            default:
+                throw new \LogicException('Output format not supported');
+        }
+
+
+
+
     }
 
     /**
@@ -191,16 +248,35 @@ trait InteractsWithIO
             $dots .= ' ';
         }
 
-        $this->output->writeln(sprintf(
-            ' <options=bold;fg=red></><options=bold> %s:</> <fg=#6C7280>%s %s</>%s ➜ <fg=%s;options=%s>%s</>',
-            $name,
-            $type,
-            $dots,
-            ltrim($current, 'v'),
-            $latestStatus !== 'non-stable' && $current === $latest ? 'green' : ($latestStatus === 'semver-safe-update' ? 'yellow' : 'red'),
-            $current === $latest ? '' : 'bold',
-            ltrim($latest, 'v'),
-        ));
+        switch ($this->options()['format']) {
+            case InspectCommand::FORMAT_LIST:
+                $this->output->writeln(sprintf(
+                    ' <options=bold;fg=red></><options=bold> %s:</> <fg=#6C7280>%s %s</>%s ➜ <fg=%s;options=%s>%s</>',
+                    $name,
+                    $type,
+                    $dots,
+                    ltrim($current, 'v'),
+                    $latestStatus !== 'non-stable' && $current === $latest ? 'green' : ($latestStatus === 'semver-safe-update' ? 'yellow' : 'red'),
+                    $current === $latest ? '' : 'bold',
+                    ltrim($latest, 'v'),
+                ));
+                break;
+            case InspectCommand::FORMAT_TABLE:
+                $this->table->addRow([
+                    sprintf('<options=bold>%s</>', $name),
+                    sprintf('<fg=#6C7280>%s</>', $type),
+                    ltrim($current, 'v'),
+                    sprintf(
+                        '<fg=%s;options=%s>%s</>',
+                        $latestStatus !== 'non-stable' && $current === $latest ? 'green' : ($latestStatus === 'semver-safe-update' ? 'yellow' : 'red'),
+                        $current === $latest ? '' : 'bold',
+                        ltrim($latest, 'v'),
+                    )
+                ]);
+                break;
+            default:
+                throw new \LogicException('Output format not supported');
+        }
 
         collect($outdated['vulnerabilities'])
             ->each(fn ($vulnerability) => $this->vulnerabilityInfo($vulnerability))
