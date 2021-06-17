@@ -14,6 +14,6 @@ final class ComposerLockNotFound extends \Exception
      */
     public static function exception(): self
     {
-        return new self('Patrol was unable to find an "composer.lock" file in your project. Did you run "composer install"?');
+        return new self('Patrol was unable to find a "composer.lock" file in your project. Did you run "composer install"?');
     }
 }
