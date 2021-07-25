@@ -35,16 +35,6 @@ You may also specify the directory that should be inspected:
 ./vendor/bin/patrol inspect ../another/project-directory
 ```
 
-## Patrol Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Patrol development. If you are interested in becoming a sponsor, please visit the Nuno Maduro's [Sponsors page](https://github.com/sponsors/nunomaduro).
-
-### Premium Sponsors
-
-- **[Akaunting](https://akaunting.com)**
-- **[Meema](https://meema.io/)**
-- **[Scout APM](https://scoutapm.com)**
-
 ## License
 
 Patrol is an open-sourced software licensed under the [MIT license](LICENSE.md).
