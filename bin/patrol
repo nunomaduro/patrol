@@ -15,7 +15,7 @@ use Symfony\Component\Console\Application;
     /**
      * Creates a new console application, and runs it.
      */
-    $application = new Application('Patrol', '0.1');
+    $application = new Application('Patrol', '1.1.0');
 
     /*
      * Hides default console commands.

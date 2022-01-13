@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.0 (2022-01-13)
+### Added
+- Laravel 9 support
+
 ## v1.0.2 (2021-06-16)
 ### Fixed
 - Windows support ([#4](https://github.com/nunomaduro/patrol/pull/4))
