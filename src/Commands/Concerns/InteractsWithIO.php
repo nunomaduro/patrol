@@ -3,9 +3,10 @@
 namespace NunoMaduro\Patrol\Commands\Concerns;
 
 use DateTime;
-use function NunoMaduro\Patrol\Support\collect;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use function NunoMaduro\Patrol\Support\collect;
 
 trait InteractsWithIO
 {
@@ -94,9 +95,9 @@ trait InteractsWithIO
     /**
      * Paint the given lines on the output.
      *
-     * @param array<int, string>|string $lines
+     * @param  array<int, string>|string  $lines
      */
-    public function paint(array | string $lines): void
+    public function paint(array|string $lines): void
     {
         if (is_string($lines)) {
             $lines = [$lines];
@@ -108,28 +109,28 @@ trait InteractsWithIO
     /**
      * Write information about a vulnerability to the console.
      *
-     * @param array<string, string> $vulnerability
+     * @param  array<string, string>  $vulnerability
      */
     public function vulnerabilityInfo(array $vulnerability): void
     {
         $terminalWidth = $this->getTerminalWidth();
 
         [
-            'link'             => $link,
+            'link' => $link,
             'affectedVersions' => $affectedVersions,
-            'reportedAt'       => $reportedAt,
-            'title'            => $title,
+            'reportedAt' => $reportedAt,
+            'title' => $title,
         ] = $vulnerability;
 
-        $link             = ltrim($link, 'https://');
+        $link = ltrim($link, 'https://');
         $affectedVersions = explode('<', $affectedVersions)[1];
 
         $dots = str_repeat('.', max(
-                $terminalWidth - 10 - strlen($title) - strlen($affectedVersions), 0)
+            $terminalWidth - 10 - strlen($title) - strlen($affectedVersions), 0)
         );
 
-        if (empty($dots) && !$this->output->isVerbose()) {
-            $title = substr($title, 0, $terminalWidth - strlen($title) - 7) . '...';
+        if (empty($dots) && ! $this->output->isVerbose()) {
+            $title = substr($title, 0, $terminalWidth - strlen($title) - 7).'...';
         } else {
             $dots .= ' ';
         }
@@ -157,21 +158,21 @@ trait InteractsWithIO
     /**
      * Write information about a outdated dependency to the console.
      *
-     * @param array<string, string|array> $outdated
+     * @param  array<string, string|array>  $outdated
      */
     public function outdatedInfo(array $outdated): void
     {
         $terminalWidth = $this->getTerminalWidth();
 
-        $latest       = $outdated['latest'] ?? $outdated['version'];
+        $latest = $outdated['latest'] ?? $outdated['version'];
         $latestStatus = $outdated['latest-status'] ?? 'non-stable';
         [
-            'name'    => $name,
+            'name' => $name,
             'version' => $current,
         ] = $outdated;
 
         $current = ltrim($current, 'v');
-        $latest  = ltrim($latest, 'v');
+        $latest = ltrim($latest, 'v');
 
         $type = '';
 
@@ -182,11 +183,11 @@ trait InteractsWithIO
         // @todo why-not?
 
         $dots = str_repeat('.', max(
-                $terminalWidth - strlen($name) - 11 - strlen($type) - strlen($current) - strlen($latest), 0)
+            $terminalWidth - strlen($name) - 11 - strlen($type) - strlen($current) - strlen($latest), 0)
         );
 
-        if (empty($dots) && !$this->output->isVerbose()) {
-            $type = substr($type, 0, $terminalWidth - strlen($name) - 13 - strlen($current) - strlen($latest)) . '...';
+        if (empty($dots) && ! $this->output->isVerbose()) {
+            $type = substr($type, 0, $terminalWidth - strlen($name) - 13 - strlen($current) - strlen($latest)).'...';
         } else {
             $dots .= ' ';
         }
@@ -204,6 +205,6 @@ trait InteractsWithIO
 
         collect($outdated['vulnerabilities'])
             ->each(fn ($vulnerability) => $this->vulnerabilityInfo($vulnerability))
-            ->whenNotEmpty(fn ()       => $this->line());
+            ->whenNotEmpty(fn () => $this->line());
     }
 }

@@ -9,8 +9,7 @@ namespace NunoMaduro\Patrol\Support;
  *
  * @template TValue
  *
- * @param TValue $value
- *
+ * @param  TValue  $value
  * @return TValue
  */
 function tap($value, callable $callback = null)
@@ -27,8 +26,7 @@ function tap($value, callable $callback = null)
  *
  * @template TValue
  *
- * @param array<int|string, TValue> $items
- *
+ * @param  array<int|string, TValue>  $items
  * @return Collection<TValue>
  */
 function collect(array $items): Collection

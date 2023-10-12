@@ -15,7 +15,7 @@ final class ComposerLock
     /**
      * Creates a new Composer Lock value object.
      *
-     * @param array<string, string> $dependencies
+     * @param  array<string, string>  $dependencies
      */
     private function __construct(private array $dependencies)
     {
@@ -38,7 +38,7 @@ final class ComposerLock
      */
     public static function fromFile(string $file): self
     {
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             throw ComposerLockNotFound::exception();
         }
 

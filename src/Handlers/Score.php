@@ -36,7 +36,7 @@ final class Score
                 new Packagist(
                     new Client(),
                     ComposerLock::fromFile(
-                        $directory . '/composer.lock'
+                        $directory.'/composer.lock'
                     ),
                 ),
             )
@@ -50,15 +50,15 @@ final class Score
     {
         $output->line();
 
-        $count      = $this->composer->all()->count();
+        $count = $this->composer->all()->count();
         $percentage = $count > 0 ? ($this->composer->updated()->count() * 100) / $count : 0;
 
         $vulnerabilities = $this->composer->all()->map(
             fn ($dependency) => $dependency['vulnerabilities']
         )->flatten();
 
-        $asString   = $this->getPercentageAsString($percentage);
-        $bgColor    = $this->getBgColor($percentage, $vulnerabilities->count());
+        $asString = $this->getPercentageAsString($percentage);
+        $bgColor = $this->getBgColor($percentage, $vulnerabilities->count());
 
         $resume = sprintf('%s dependencies', $count);
 

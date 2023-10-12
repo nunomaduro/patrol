@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace NunoMaduro\Patrol\Repositories;
 
-use function NunoMaduro\Patrol\Support\collect;
 use NunoMaduro\Patrol\Support\Collection;
 use NunoMaduro\Patrol\Support\ComposerBinary;
+
+use function NunoMaduro\Patrol\Support\collect;
 
 /**
  * @internal
@@ -49,7 +50,7 @@ final class Composer
     {
         return $this->mutate($this->composer->outdated())
             ->filter(
-                fn ($dependency) => !in_array($dependency['name'], $this->mayBeOutdated),
+                fn ($dependency) => ! in_array($dependency['name'], $this->mayBeOutdated),
             )->filter(
                 fn ($dependency) => $dependency['latest-status'] !== 'up-to-date',
             );
@@ -64,7 +65,7 @@ final class Composer
     {
         return $this->mutate($this->composer->all())
             ->filter(
-                fn ($dependency) => !in_array($dependency['name'], $this->mayBeOutdated),
+                fn ($dependency) => ! in_array($dependency['name'], $this->mayBeOutdated),
             );
     }
 
@@ -81,8 +82,7 @@ final class Composer
     /**
      * @template TItem
      *
-     * @param array<int, TItem> $items
-     *
+     * @param  array<int, TItem>  $items
      * @return Collection<TItem>
      */
     private function mutate(array $items): Collection
@@ -103,7 +103,7 @@ final class Composer
 
         $versions = $collection->keyBy('name')->map(fn ($dependency) => $dependency['latest'])->toArray();
 
-        $why     = collect($this->composer->why($versions));
+        $why = collect($this->composer->why($versions));
         $whyNots = collect($this->composer->whyNot($versions));
 
         $collection = $collection->map(function ($dependency) use ($why, $whyNots) {

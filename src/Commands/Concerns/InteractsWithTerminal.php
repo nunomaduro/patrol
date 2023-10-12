@@ -9,7 +9,7 @@ trait InteractsWithTerminal
     /**
      * The current terminal width.
      */
-    private int | null $terminalWidth = null;
+    private ?int $terminalWidth = null;
 
     /**
      * Computes the terminal width.

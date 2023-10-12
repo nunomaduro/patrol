@@ -12,7 +12,7 @@ namespace NunoMaduro\Patrol\Support;
 class Collection
 {
     /**
-     * @param array<int|string, TItem> $items
+     * @param  array<int|string, TItem>  $items
      */
     public function __construct(private array $items)
     {
@@ -78,7 +78,7 @@ class Collection
      *
      * @return self<TItem>
      */
-    public function keyBy(int | string $keyBy)
+    public function keyBy(int|string $keyBy)
     {
         $results = [];
 
@@ -104,8 +104,7 @@ class Collection
     /**
      * Returns the item at a given key.
      *
-     * @param TItem|null $default
-     *
+     * @param  TItem|null  $default
      * @return TItem|null
      */
     public function get(string $key, mixed $default = null): mixed
@@ -116,11 +115,10 @@ class Collection
     /**
      * Gets an item by the given where condition.
      *
-     * @param TItem|null $default
-     *
+     * @param  TItem|null  $default
      * @return TItem|null
      */
-    public function where(int | string $key, mixed $value, mixed $default = null): mixed
+    public function where(int|string $key, mixed $value, mixed $default = null): mixed
     {
         foreach ($this->items as $item) {
             if ($item[$key] === $value) {
@@ -158,8 +156,7 @@ class Collection
      *
      * @template TResult
      *
-     * @param callable(TItem, int|string): TResult $callable
-     *
+     * @param  callable(TItem, int|string): TResult  $callable
      * @return self<TResult>
      */
     public function map(callable $callable): self

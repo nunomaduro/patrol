@@ -26,8 +26,8 @@ test('map', function () {
 
 test('implode', function () {
     $value = collect(['foo', 'bar'])->map(
-            fn ($value) => $value
-        )->implode(', ') . '.';
+        fn ($value) => $value
+    )->implode(', ').'.';
 
     expect($value)->toBe('foo, bar.');
 });

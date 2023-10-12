@@ -36,14 +36,14 @@ final class DependenciesList
                 new Packagist(
                     new Client(),
                     ComposerLock::fromFile(
-                        $directory . '/composer.lock'
+                        $directory.'/composer.lock'
                     ),
                 ),
             ),
             new Packagist(
                 new Client(),
                 ComposerLock::fromFile(
-                    $directory . '/composer.lock'
+                    $directory.'/composer.lock'
                 ),
             ),
         );
@@ -57,13 +57,13 @@ final class DependenciesList
         $this->composer
             ->all()
             ->map(function ($dependency) use ($output) {
-                if (!empty($dependency['vulnerabilities'])) {
+                if (! empty($dependency['vulnerabilities'])) {
                     $output->exitWith(Command::FAILURE);
                 }
 
                 return $dependency;
             })->filter(
-                fn ($dependency)     => $dependency['latest-status'] !== 'up-to-date' || !empty($dependency['vulnerabilities'])
+                fn ($dependency) => $dependency['latest-status'] !== 'up-to-date' || ! empty($dependency['vulnerabilities'])
             )->each(fn ($dependency) => $output->outdatedInfo($dependency));
     }
 }

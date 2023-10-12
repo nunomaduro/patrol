@@ -7,9 +7,10 @@ namespace NunoMaduro\Patrol\Repositories;
 use Composer\Semver\Semver;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-use function NunoMaduro\Patrol\Support\collect;
 use NunoMaduro\Patrol\Support\Collection;
 use NunoMaduro\Patrol\Support\ComposerLock;
+
+use function NunoMaduro\Patrol\Support\collect;
 
 /**
  * @internal
@@ -24,7 +25,7 @@ final class Packagist
     /**
      * @var Collection<array>|null
      */
-    private Collection | null $vulnerabilities = null;
+    private ?Collection $vulnerabilities = null;
 
     /**
      * Creates a new vulnerabilities repository.
@@ -85,7 +86,7 @@ final class Packagist
                             if (Semver::satisfies($chunk->get($packageName), $effectedVersion)) {
                                 return array_merge($vulnerability, [
                                     'affectedVersions' => $effectedVersion,
-                                    'current'          => $chunk->get($packageName),
+                                    'current' => $chunk->get($packageName),
                                 ]);
                             }
                         }

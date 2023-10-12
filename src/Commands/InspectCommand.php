@@ -6,12 +6,13 @@ namespace NunoMaduro\Patrol\Commands;
 
 use NunoMaduro\Patrol\Handlers\DependenciesList;
 use NunoMaduro\Patrol\Handlers\Score;
-use function NunoMaduro\Patrol\Support\collect;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use function NunoMaduro\Patrol\Support\collect;
 
 /**
  * @internal
@@ -66,7 +67,7 @@ final class InspectCommand extends Command
         $directory = $input->getArgument('directory');
 
         collect($this->handlers)
-            ->map(fn ($class)    => $class::resolve($directory))
+            ->map(fn ($class) => $class::resolve($directory))
             ->each(fn ($handler) => $handler($this));
 
         return $this->exitCode;

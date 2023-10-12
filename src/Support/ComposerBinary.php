@@ -73,8 +73,7 @@ final class ComposerBinary
     /**
      * Returns the reason why the given dependencies exist.
      *
-     * @param array<string,string> $dependencies
-     *
+     * @param  array<string,string>  $dependencies
      * @return array<string,string>
      */
     public function why(array $dependencies): array
@@ -86,13 +85,13 @@ final class ComposerBinary
         return collect(
             $this->run(
                 collect($dependencies)->map(
-                    fn ($version, $name) => 'why ' . $name . ' --recursive',
+                    fn ($version, $name) => 'why '.$name.' --recursive',
                 )->toArray()
             )
-        )->map(fn ($output)     => explode("\n", $output))
-            ->filter(fn ($line) => !empty($line))
-            ->map(fn ($output)  => collect($output)->map(
-                fn ($line)      => explode(' ', $line)[0]
+        )->map(fn ($output) => explode("\n", $output))
+            ->filter(fn ($line) => ! empty($line))
+            ->map(fn ($output) => collect($output)->map(
+                fn ($line) => explode(' ', $line)[0]
             )->filter()->unique()->filter(
                 fn ($dependency) => in_array($dependency, $root, true)
             )->toArray()
@@ -109,13 +108,13 @@ final class ComposerBinary
         return collect(
             $this->run(
                 collect($dependencies)->map(
-                    fn ($version, $name) => 'why-not ' . $name . ':' . $version,
+                    fn ($version, $name) => 'why-not '.$name.':'.$version,
                 )->toArray()
             )
-        )->map(fn ($output)     => explode("\n", $output))
-            ->filter(fn ($line) => !empty($line))
-            ->map(fn ($output)  => collect($output)->map(
-                fn ($line)      => explode(' ', $line)[0]
+        )->map(fn ($output) => explode("\n", $output))
+            ->filter(fn ($line) => ! empty($line))
+            ->map(fn ($output) => collect($output)->map(
+                fn ($line) => explode(' ', $line)[0]
             )->toArray()
             )->toArray();
     }
@@ -123,8 +122,7 @@ final class ComposerBinary
     /**
      * Runs the given composer command and returns it's process.
      *
-     * @param array<int|string, string> $commands
-     *
+     * @param  array<int|string, string>  $commands
      * @return array<int|string, string>
      */
     private function run(array $commands): array
