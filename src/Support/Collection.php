@@ -58,7 +58,7 @@ class Collection
      *
      * @return self<TItem>
      */
-    public function filter(callable $callable = null): self
+    public function filter(?callable $callable = null): self
     {
         return new self(array_filter($this->items, $callable));
     }

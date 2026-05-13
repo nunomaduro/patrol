@@ -6,6 +6,7 @@ namespace NunoMaduro\Patrol\Commands;
 
 use NunoMaduro\Patrol\Handlers\DependenciesList;
 use NunoMaduro\Patrol\Handlers\Score;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,14 +18,13 @@ use function NunoMaduro\Patrol\Support\collect;
 /**
  * @internal
  */
+#[AsCommand(
+    name: 'inspect',
+    hidden: false
+)]
 final class InspectCommand extends Command
 {
     use Concerns\InteractsWithIO;
-
-    /**
-     * The command name.
-     */
-    protected static $defaultName = 'inspect';
 
     /**
      * @var array<string, string>>
