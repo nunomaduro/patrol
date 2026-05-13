@@ -12,7 +12,7 @@ namespace NunoMaduro\Patrol\Support;
  * @param  TValue  $value
  * @return TValue
  */
-function tap($value, callable $callback = null)
+function tap($value, ?callable $callback = null)
 {
     if ($callback) {
         $callback($value);
